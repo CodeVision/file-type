@@ -183,6 +183,10 @@ const names = {
 	mpc: [
 		'fixture-sv7',
 		'fixture-sv8'
+	],
+	xml: [
+		'fixture-xml-nobom',
+		'fixture-xml-utf8-bom'
 	]
 };
 
