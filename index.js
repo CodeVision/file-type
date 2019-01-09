@@ -48,6 +48,12 @@ module.exports = input => {
 
 	const checkString = (header, options) => check(toBytes(header), options);
 
+	const getBOMOffset = () => {
+		return ((check([0xEF, 0xBB, 0xBF]) && 3) ||
+						(check([0xFE, 0xFF]) && 2) ||
+						(check([0xFF, 0xFE]) && 2) || 0);
+	};
+
 	if (check([0xFF, 0xD8, 0xFF])) {
 		return {
 			ext: 'jpg',
@@ -819,7 +825,7 @@ module.exports = input => {
 		};
 	}
 
-	if (checkString('<?xml ')) {
+	if (checkString('<?xml ', {offset: getBOMOffset()})) {
 		return {
 			ext: 'xml',
 			mime: 'application/xml'
